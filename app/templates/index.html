@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Country Info</title>
+  <style>
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url("https://globalmaps.org/wp-content/uploads/2023/10/World-Map-white-2048x1171.png") no-repeat fixed center/cover;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 20px;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* two columns */
+      gap: 30px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding-right: 10px;
+    }
+
+
+.glass:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+
+.glass img {
+  max-width: 120px;
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+.glass {
+  background: rgba(255, 255, 255, 0.1); /* light transparent layer */
+  border-radius: 15px;
+   backdrop-filter: none;
+  -webkit-backdrop-filter: none; 
+  border: 1px solid rgba(122, 122, 122, 0.3);
+  padding: 15px;
+  color: #fff; /* better visibility on background */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-size: 16px;
+}
+.glass h3 {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #f0f0f0; /* slightly dim white */
+}
+
+
+    .glass:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .glass h3 {
+      margin: 5px 0;
+      font-size: 20px;
+      font-weight: bold;
+      color: #000; /* darker heading for readability */
+    }
+    .glass p{
+      font-size: 18px;
+      font-weight: bold;
+      color: gray;
+    }
+    .glass img {
+      max-width: 120px;
+      border-radius: 8px;
+      margin-top: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    form {
+      text-align: center;
+      width: 100%;
+    }
+
+    input,
+    button {
+      padding: 10px;
+      border-radius: 8px;
+      margin: 5px;
+    }
+
+    button {
+      background: #ff9800;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  {% if form %}
+    <form action="" method="post">
+      {% csrf_token %}
+      <label>Country name:</label>
+      <input type="text" name="country" placeholder="Enter country">
+      <button type="submit">SEARCH</button>
+    </form>
+  {% else %}
+    <div class="container">
+      <!-- Left Column -->
+      <div class="column">
+        <div class="glass"><h3>Name</h3><p>{{ l.0.name }}</p></div>
+        <div class="glass"><h3>Official (Hindi)</h3><p>{{ l.0.official }}</p></div>
+        <div class="glass"><h3>Code</h3><p>{{ l.0.code }}</p></div>
+        <div class="glass"><h3>Independent</h3><p>{{ l.0.independent }}</p></div>
+        <div class="glass"><h3>Currency</h3><p>{{ l.0.currency }}</p></div>
+        <div class="glass"><h3>Calling Code</h3><p>{{ l.0.calling_code }}</p></div>
+        <div class="glass"><h3>Capital</h3><p>{{ l.0.capital }}</p></div>
+        <div class="glass"><h3>Alternate Spellings</h3><p>{{ l.0.alt_spellings }}</p></div>
+        <div class="glass"><h3>Region</h3><p>{{ l.0.region }}</p></div>
+        <div class="glass"><h3>Subregion</h3><p>{{ l.0.subregion }}</p></div>
+        <div class="glass"><h3>Flag</h3><img src="{{ l.0.flag }}" alt="flag"></div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="column">
+        <div class="glass"><h3>Languages</h3><p>{{ l.0.languages }}</p></div>
+        <div class="glass"><h3>Lat/Lng</h3><p>{{ l.0.latlng }}</p></div>
+        <div class="glass"><h3>Borders</h3><p>{{ l.0.borders }}</p></div>
+        <div class="glass"><h3>Area</h3><p>{{ l.0.area }} km²</p></div>
+        <div class="glass"><h3>Population</h3><p>{{ l.0.population }}</p></div>
+        <div class="glass"><h3>Timezone(s)</h3><p>{{ l.0.timezone }}</p></div>
+        <div class="glass"><h3>Current Time</h3><p>{{ l.0.current_time }}</p></div>
+        <div class="glass"><h3>Continent</h3><p>{{ l.0.continent }}</p></div>
+        <div class="glass"><h3>Start of Week</h3><p>{{ l.0.start_of_week }}</p></div>
+        <div class="glass"><h3>
+       <iframe 
+  src="https://www.google.com/maps?q={{ l.0.name }}&output=embed" 
+  width="100%" height="300" style="border:0;" allowfullscreen>
+</iframe>
+</h3>
+        </div>
+
+
+        {% if l.0.coat_of_arms %}
+        <div class="glass"><h3>Coat of Arms</h3><img src="{{ l.0.coat_of_arms }}" alt="coat of arms"></div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+</body>
+</html>
